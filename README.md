@@ -64,16 +64,16 @@ for (const doc of snapshot.docs) {
 
 ```js
 // For single-doc queries:
-const query = db.collection('cities')
-const cities = await queryFirestore(query).catch(e => {
+const query = db.collection('cities').doc('cityId')
+const city = await queryFirestore(query).catch(e => {
   //error handling
 })
 ```
 
 ```js
 // For multi-doc queries:
-const query = db.collection('cities').doc('cityId')
-const city = await queryFirestore(query).catch(e => {
+const query = db.collection('cities')
+const cities = await queryFirestore(query).catch(e => {
   //error handling
 })
 ```
