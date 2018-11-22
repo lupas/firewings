@@ -1,5 +1,7 @@
 # 🔥 Firewings 🔥
 
+<p align="center"><img align="center" height="300px" src="https://github.com/lupas/firewings/blob/master/misc/logo/firewings_logo.png?raw=true"/></p>
+
 > Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.
 
 ## Requirements
