@@ -45,12 +45,9 @@ And in addition you get the documents `id` and `path` for on every object, too.
 const query = db.collection('cities')
 
 /** 2. Get Snapshot */
-let snapshot
-try {
-  snapshot = await queryFirestore(query)
-} catch (e) {
+const snapshot = await queryFirestore(query).catch(e => {
   //error handling
-}
+})
 
 /** 3.1 Get data from Snapshot if single-doc query */
 const city = snapshot.data()
@@ -68,22 +65,17 @@ for (const doc of snapshot.docs) {
 ```js
 // For single-doc queries:
 const query = db.collection('cities')
-try {
-  const cities = await queryFirestore(query)
-} catch (e) {
+const cities = await queryFirestore(query).catch(e => {
   //error handling
-}
+})
 ```
 
 ```js
 // For multi-doc queries:
 const query = db.collection('cities').doc('cityId')
-let city
-try {
-  city = await queryFirestore(query)
-} catch (e) {
+const city = await queryFirestore(query).catch(e => {
   //error handling
-}
+})
 ```
 
 ## unwrapFirestoreDoc()
