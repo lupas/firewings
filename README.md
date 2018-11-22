@@ -1,6 +1,6 @@
 # 🔥 Firewings 🔥
 
-<p align="center"><img align="center" height="300px" src="https://github.com/lupas/firewings/blob/master/misc/logo/firewings_logo.png?raw=true"/></p>
+<p align="center"><img align="center" height="250px" src="https://github.com/lupas/firewings/blob/master/misc/logo/firewings_logo.png?raw=true"/></p>
 
 > Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.
 
@@ -34,7 +34,11 @@ import { unwrapFirestoreDoc } from 'firewings'
 
 ### queryFirestore()
 
-**OLD WAY**:
+This function gets you an (array of) item(s) from Firestore document without caring about loops or accessing the data() fron the snapshot. Just get the objects right away.
+
+And in addition you get the documents `id` and `path` for on every object, too.
+
+**TRADITIONAL WAY**:
 
 ```js
 /** 1. Define ref/query */
@@ -60,9 +64,9 @@ for (const doc of snapshot.docs) {
 ```
 
 **WITH FIREWINGS**:
+For single-doc queries:
 
 ```js
-/** For single-doc queries */
 const query = db.collection('cities')
 try {
   const cities = await queryFirestore(query)
@@ -71,11 +75,13 @@ try {
 }
 ```
 
+For multi-doc queries:
+
 ```js
-/** For multi-doc queries */
 const query = db.collection('cities').doc('cityId')
+let city
 try {
-  const city = await queryFirestore(query)
+  city = await queryFirestore(query)
 } catch (e) {
   //error handling
 }
@@ -87,7 +93,7 @@ This function unwraps a Firestore snapshot of a single- or multiple-document que
 
 Additionally, it adds the documents `id` and `path` to every item.
 
-**OLD WAY**:
+**TRADITIONAL WAY**:
 
 ```js
 /** For single-doc queries */
@@ -121,4 +127,4 @@ const cities = unwrapFirestoreDoc(snapshot)
 
 ### Disclaimer
 
-These are some functions I personally reuse in different Firebase projects to save some repeating lines of code. I don't plan to do much more here and I might change things drastically. I will probably keep it up to date, but cannot guarantee anything.
+These are just some quick functions I personally used in different Firebase projects to save some repeating lines of code. Since I used that in every project, I decided to build a node module out of it to easily manage it. I might not do much more here but also might change things drastically. I will probably keep it up to date, but cannot guarantee anything. So use it at your own risk :-)
