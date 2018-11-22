@@ -30,9 +30,9 @@ import { queryFirestore } from 'firewings'
 import { unwrapFirestoreDoc } from 'firewings'
 ```
 
-## Included Functions
+# Included Functions
 
-### queryFirestore()
+## queryFirestore()
 
 This function gets you an (array of) item(s) from Firestore document without caring about loops or accessing the data() fron the snapshot. Just get the objects right away.
 
@@ -64,9 +64,9 @@ for (const doc of snapshot.docs) {
 ```
 
 **WITH FIREWINGS**:
-For single-doc queries:
 
 ```js
+// For single-doc queries:
 const query = db.collection('cities')
 try {
   const cities = await queryFirestore(query)
@@ -75,9 +75,8 @@ try {
 }
 ```
 
-For multi-doc queries:
-
 ```js
+// For multi-doc queries:
 const query = db.collection('cities').doc('cityId')
 let city
 try {
@@ -87,7 +86,7 @@ try {
 }
 ```
 
-### unwrapFirestoreDoc()
+## unwrapFirestoreDoc()
 
 This function unwraps a Firestore snapshot of a single- or multiple-document query and returns the items' data as objects. Either as an array of objects or as a single object.
 
