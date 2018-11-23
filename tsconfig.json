@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "es6",
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["es6"]
   },
   "include": ["src"],
