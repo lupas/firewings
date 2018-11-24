@@ -1,8 +1,8 @@
 {
   "name": "firewings",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "author": "Pascal Luther",
   "license": "MIT",
   "keywords": [
@@ -10,13 +10,7 @@
     "firestore",
     "helper-functions"
   ],
-  "scripts": {
-    "build": "tsc"
-  },
   "peerDependencies": {
     "firebase": "^5.5.9"
-  },
-  "devDependencies": {
-    "typescript": "^3.1.6"
   }
 }

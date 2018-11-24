@@ -2,7 +2,7 @@
 /** Takes ref and queries it ********************/
 /** Returning the JS document as a Javascript Obj */
 /**************************************************/
-export const queryFirestore = async (query: any) => {
+export const queryFirestore = async function(query) {
   let snapshot
   try {
     snapshot = await query.get()
@@ -16,7 +16,7 @@ export const queryFirestore = async (query: any) => {
 /** Takes a Snapshot and returns the queried item */
 /** adding _id and _path to the queried document  */
 /**************************************************/
-export const unwrapFirestoreDoc = (snapshot: any) => {
+export const unwrapFirestoreDoc = function(snapshot) {
   //If it is a multi-document query
   // returns am array of items
   if (snapshot.docs) {
