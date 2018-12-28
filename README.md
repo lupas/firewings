@@ -28,6 +28,10 @@ Add the below code to wherever you want to use the functions.
 import { queryFirestore } from 'firewings'
 //or
 import { unwrapFirestoreDoc } from 'firewings'
+//or
+import { addToFirestore } from 'firewings'
+//or
+import { setToFirestore } from 'firewings'
 ```
 
 # Included Functions
@@ -110,6 +114,45 @@ const city = unwrapFirestoreDoc(snapshot)
 const cities = unwrapFirestoreDoc(snapshot)
 ```
 
+## addToFirestore()
+
+This function takes a reference and an object as payload and adds it to Firestore. It returns the to added object including its Firebase `id` and `path`.
+
+**TRADITIONAL WAY**:
+
+```js
+const ref = await ref.add(data)
+data.id = ref.id
+data.path = ref.path
+return data
+```
+
+**WITH FIREWINGS**:
+
+```js
+return await addToFirestore(ref, data)
+```
+
+## setToFirestore()
+
+This function takes a query and an object as payload and sets (updates or creates) the document in Firestore. Befrore that, the properties `id` and `path` will be removed from the object, so it won't be written to Firestore.
+
+**TRADITIONAL WAY**:
+
+```js
+let clone = Object.assign({}, data)
+let id = clone.id
+delete clone.id
+delete clone.path
+await ref.doc(id).set(clone)
+```
+
+**WITH FIREWINGS**:
+
+```js
+await setToFirestore(ref.doc(id), data)
+```
+
 ### Disclaimer
 
-These are just some quick functions I personally used in different Firebase projects to save some repeating lines of code. Since I used that in every project, I decided to build a node module out of it to easily manage it. I might not do much more here but also might change things drastically. I will probably keep it up to date, but cannot guarantee anything. So use it at your own risk :-)
+These are just some quick functions I personally used in different Firebase projects to save some repeating lines of code. Since I used that in every project, I decided to build a node module out of it to easily manage it.

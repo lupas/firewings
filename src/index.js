@@ -1,15 +1,48 @@
 /***************************************************/
-/** Takes ref and queries it ********************/
-/** Returning the JS document as a Javascript Obj */
+/** Takes a query and a payload ********************/
+/** Removes the properties id and path from the copy of a object  and set() it to firebase  */
 /**************************************************/
-export const queryFirestore = async function(query) {
-  let snapshot
+
+export const setToFirestore = async function(ref, payload) {
+  let clone = Object.assign({}, payload)
+  if (clone.id) delete clone.id
+  if (clone.path) delete clone.path
+
   try {
-    snapshot = await query.get()
+    await ref.set(clone)
   } catch (e) {
     return Promise.reject(e)
   }
-  return unwrapFirestoreDoc(snapshot)
+}
+
+/***************************************************/
+/** Takes a query and a payload ********************/
+/** Returns the payload with the properties id and path */
+/**************************************************/
+
+export const addToFirestore = async function(ref, payload) {
+  try {
+    const snapshot = await ref.add(payload)
+    payload.id = snapshot.id
+    payload.path = snapshot.path
+    return payload
+  } catch (e) {
+    return Promise.reject(e)
+  }
+}
+
+/***************************************************/
+/** Takes ref and queries it ********************/
+/** Returning the JS document as a Javascript Obj */
+/**************************************************/
+
+export const queryFirestore = async function(query) {
+  try {
+    const snapshot = await query.get()
+    return unwrapFirestoreDoc(snapshot)
+  } catch (e) {
+    return Promise.reject(e)
+  }
 }
 
 /***************************************************/
