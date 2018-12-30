@@ -21,11 +21,12 @@ export const setToFirestore = async function(ref, payload) {
 /**************************************************/
 
 export const addToFirestore = async function(ref, payload) {
+  let clone = Object.assign({}, payload)
   try {
-    const snapshot = await ref.add(payload)
-    payload.id = snapshot.id
-    payload.path = snapshot.path
-    return payload
+    const docRef = await ref.add(clone)
+    clone.id = docRef.id
+    clone.path = docRef.path
+    return clone
   } catch (e) {
     return Promise.reject(e)
   }
