@@ -1,6 +1,6 @@
 {
   "name": "firewings",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.",
   "main": "lib/index.js",
   "author": "Pascal Luther",
