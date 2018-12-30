@@ -1,6 +1,6 @@
 {
   "name": "firewings",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.",
   "main": "lib/index.js",
   "author": "Pascal Luther",
@@ -11,7 +11,8 @@
     "helper-functions"
   ],
   "scripts": {
-    "compile": "./node_modules/.bin/babel src --out-dir lib"
+    "compile": "./node_modules/.bin/babel src --out-dir lib",
+    "publishToNpm": "npm run compile && npm publish"
   },
   "peerDependencies": {
     "firebase": "^5.7.2"
