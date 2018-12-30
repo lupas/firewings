@@ -32,6 +32,8 @@ import { unwrapFirestoreDoc } from 'firewings'
 import { addToFirestore } from 'firewings'
 //or
 import { setToFirestore } from 'firewings'
+//or
+import { changeDocId } from 'firewings'
 ```
 
 # Included Functions
@@ -151,6 +153,30 @@ await ref.doc(id).set(clone)
 
 ```js
 await setToFirestore(ref.doc(id), data)
+```
+
+## changeDocId()
+
+This function changes the id of an existing document to a new id. It does this by creating a new document wwith the new key, and then deleting the old document.
+
+> WARNING: Only do this, if you are sure what you are doing. The old document will be deleted, so any references might be invalid. Also make sure you have no onDelete() actions that you don't want to get triggered.
+
+**TRADITIONAL WAY**:
+
+```js
+    // First get the document
+    const doc = await queryFirestore(docRef)
+    // Then save it under the new id
+    const newRef = docRef.parent.doc(newKey)
+    const newDoc = await setToFirestore(newRef, doc)
+    // Then delete the old document and return the new document
+    await docRef.delete()
+```
+
+**WITH FIREWINGS**:
+
+```js
+await changeDocId(ref, 'newId')
 ```
 
 ### Disclaimer
