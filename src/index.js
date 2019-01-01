@@ -1,7 +1,7 @@
-/***************************************************/
-/** Takes a query and a payload ********************/
+/********************************************************************************************/
+/** Takes a query and a payload *************************************************************/
 /** Removes the properties id and path from the copy of a object  and set() it to firebase  */
-/**************************************************/
+/********************************************************************************************/
 
 export const setToFirestore = async function(ref, payload) {
   let clone = Object.assign({}, payload)
@@ -10,6 +10,9 @@ export const setToFirestore = async function(ref, payload) {
 
   try {
     await ref.set(clone)
+    clone.id = ref.id
+    clone.path = ref.path
+    return clone
   } catch (e) {
     return Promise.reject(e)
   }
@@ -21,11 +24,12 @@ export const setToFirestore = async function(ref, payload) {
 /**************************************************/
 
 export const addToFirestore = async function(ref, payload) {
+  let clone = Object.assign({}, payload)
   try {
-    const snapshot = await ref.add(payload)
-    payload.id = snapshot.id
-    payload.path = snapshot.path
-    return payload
+    const docRef = await ref.add(clone)
+    clone.id = docRef.id
+    clone.path = docRef.path
+    return clone
   } catch (e) {
     return Promise.reject(e)
   }
@@ -75,5 +79,25 @@ export const unwrapFirestoreDoc = function(snapshot) {
       item.path = snapshot.ref.path
     }
     return item
+  }
+}
+
+/***************************************************************************************/
+/** Gets a document, copies it to a document with the new id and deletes the old one****/
+/** WARNING: Do this at your own risk, only do this if you are sure what you are doing */
+/***************************************************************************************/
+
+export const changeDocId = async function(docRef, newKey) {
+  try {
+    // First get the document
+    const doc = await queryFirestore(docRef)
+    // Then save it under the new id
+    const newRef = docRef.parent.doc(newKey)
+    const newDoc = await setToFirestore(newRef, doc)
+    // Then delete the old document and return the new document
+    await docRef.delete()
+    return newDoc
+  } catch (e) {
+    return Promise.reject(e)
   }
 }
