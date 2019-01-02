@@ -81,7 +81,7 @@ const query = db.collection('cities')
 const cities = await queryFirestore(query)
 ```
 
-Furthermore you can us the second augemnt to return the data of a multi-doc querie as `object` instad as `array`.
+Furthermore you can use the second argument to return the data of a multi-doc querie as an `object` instad of an `array`.
 
 This will retun a array:
 
@@ -221,7 +221,7 @@ await ref.doc(id).set(clone)
 await setToFirestore(ref.doc(id), data)
 ```
 
-It's also possible to to batched writes.
+It's also possible to do batched writes.
 
 ```js
 // Get a new write batch
