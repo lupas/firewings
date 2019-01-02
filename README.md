@@ -42,7 +42,7 @@ import { changeDocId } from 'firewings'
 
 This function gets you an item, an array of items or an object of items from a Firebase query without you having to care about loops or getting the data from the snapshot. You'll just get the objects right away.
 
-And in addition you get the documents `id` and `path` for every object, too.
+In addition you get the documents `id` and `path` for every object, too.
 
 **TRADITIONAL WAY**:
 
@@ -111,10 +111,10 @@ const cities = await queryFirestore(query, false)
 ]
 ```
 
-This will retun a object:
+This will return an object:
 
 ```js
-// For multi-doc queries which retuns an object:
+// For multi-doc queries which return an object:
 const query = db.collection('cities')
 const cities = await queryFirestore(query, true)
 ```
@@ -122,15 +122,15 @@ const cities = await queryFirestore(query, true)
 ```js
 // const cities looks like
 {
-  A:{
+  A: {
     id: "A",
     path: "cities/A"
   },
-  B:{
+  B: {
     id: "B",
     path: "cities/B"
   },
-  C:{
+  C: {
     id: "C",
     path: "cities/C"
   },
@@ -184,7 +184,7 @@ For more information about returning objects read the chaperter **queryFirestore
 
 ## addToFirestore()
 
-This function takes a reference and an object as payload and adds it to Firestore. It returns the to added object including its Firebase `id` and `path`.
+This function takes a reference and an object as payload and adds it to Firestore. It returns the added object including its Firebase `id` and `path`.
 
 **TRADITIONAL WAY**:
 
