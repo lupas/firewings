@@ -180,7 +180,7 @@ const cities = unwrapFirestoreDoc(snapshot)
 const cities = unwrapFirestoreDoc(snapshot, true)
 ```
 
-For more information about returning objects reed the chaperter **queryFirestore**.
+For more information about returning objects read the chaperter **queryFirestore**.
 
 ## addToFirestore()
 
