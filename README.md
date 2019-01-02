@@ -40,18 +40,21 @@ import { changeDocId } from 'firewings'
 
 ## queryFirestore()
 
-This function gets you an item or an array of items from a Firebase query without you having to care about loops or getting the data from the snapshot. You'll just get the objects right away.
+This function gets you an item, an array of items or an object of items from a Firebase query without you having to care about loops or getting the data from the snapshot. You'll just get the objects right away.
 
-And in addition you get the documents `id` and `path` for on every object, too.
+And in addition you get the documents `id` and `path` for every object, too.
 
 **TRADITIONAL WAY**:
 
 ```js
-/** 1. Define ref/query */
+/** 1.1 Define single-doc ref/query  */
+const query = db.collection('cities').doc('cityId')
+
+/** 1.2  Define multi-doc ref/query */
 const query = db.collection('cities')
 
 /** 2. Get Snapshot */
-const snapshot = await queryFirestore(query)
+const snapshot = await query.get()
 
 /** 3.1 Get data from Snapshot if single-doc query */
 const city = snapshot.data()
@@ -78,9 +81,65 @@ const query = db.collection('cities')
 const cities = await queryFirestore(query)
 ```
 
+Furthermore you can use the second argument to return the data of a multi-doc querie as an `object` instad of an `array`.
+
+This will retun a array:
+
+```js
+// For multi-doc queries which retuns an array:
+const query = db.collection('cities')
+const cities = await queryFirestore(query)
+// or
+const cities = await queryFirestore(query, false)
+```
+
+```js
+// const cities looks like
+;[
+  {
+    id: 'A',
+    path: 'cities/A'
+  },
+  {
+    id: 'B',
+    path: 'cities/B'
+  },
+  {
+    id: 'C',
+    path: 'cities/C'
+  }
+]
+```
+
+This will retun a object:
+
+```js
+// For multi-doc queries which retuns an object:
+const query = db.collection('cities')
+const cities = await queryFirestore(query, true)
+```
+
+```js
+// const cities looks like
+{
+  A:{
+    id: "A",
+    path: "cities/A"
+  },
+  B:{
+    id: "B",
+    path: "cities/B"
+  },
+  C:{
+    id: "C",
+    path: "cities/C"
+  },
+}
+```
+
 ## unwrapFirestoreDoc()
 
-This function unwraps a Firestore snapshot of a single- or multiple-document query and returns the item(s)' data as objects. Either as an array of objects or as a single object.
+This function unwraps a Firestore snapshot of a single- or multiple-document query and returns the item(s)' data as objects. Either as an array of objects, object of objects or as a single object.
 
 Additionally, it adds the documents `id` and `path` to every item.
 
@@ -107,14 +166,21 @@ for (const doc of snapshot.docs) {
 **WITH FIREWINGS**:
 
 ```js
-/** For single-doc queries */
+/** For single-doc queries returns an single object*/
 const city = unwrapFirestoreDoc(snapshot)
 ```
 
 ```js
-/** For multi-doc queries */
+/** For multi-doc queries returns an array of objects*/
 const cities = unwrapFirestoreDoc(snapshot)
 ```
+
+```js
+/** For multi-doc queries returns an object of objects*/
+const cities = unwrapFirestoreDoc(snapshot, true)
+```
+
+For more information about returning objects read the chaperter **queryFirestore**.
 
 ## addToFirestore()
 
@@ -155,6 +221,27 @@ await ref.doc(id).set(clone)
 await setToFirestore(ref.doc(id), data)
 ```
 
+It's also possible to do batched writes.
+
+```js
+// Get a new write batch
+let batch = db.batch()
+
+// Set something
+await setToFirestore(ref.doc(id), data, batch)
+
+// Delete something
+await batch.delete(ref.doc(id))
+
+//  Set again something
+await setToFirestore(ref2.doc(id), data, batch)
+
+// Commit the batch
+batch.commit().then(function() {
+  // ...
+})
+```
+
 ## changeDocId()
 
 This function changes the id of an existing document to a new id. It does this by creating a new document wwith the new key, and then deleting the old document.
@@ -164,13 +251,13 @@ This function changes the id of an existing document to a new id. It does this b
 **TRADITIONAL WAY**:
 
 ```js
-    // First get the document
-    const doc = await queryFirestore(docRef)
-    // Then save it under the new id
-    const newRef = docRef.parent.doc(newKey)
-    const newDoc = await setToFirestore(newRef, doc)
-    // Then delete the old document and return the new document
-    await docRef.delete()
+// First get the document
+const doc = await queryFirestore(docRef)
+// Then save it under the new id
+const newRef = docRef.parent.doc(newKey)
+const newDoc = await setToFirestore(newRef, doc)
+// Then delete the old document and return the new document
+await docRef.delete()
 ```
 
 **WITH FIREWINGS**:

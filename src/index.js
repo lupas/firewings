@@ -3,13 +3,17 @@
 /** Removes the properties id and path from the copy of a object  and set() it to firebase  */
 /********************************************************************************************/
 
-export const setToFirestore = async function(ref, payload) {
+export const setToFirestore = async function(ref, payload, batch = null) {
   let clone = Object.assign({}, payload)
   if (clone.id) delete clone.id
   if (clone.path) delete clone.path
 
   try {
-    await ref.set(clone)
+    if (batch == null) {
+      await ref.set(clone)
+    } else {
+      batch.set(ref, payload)
+    }
     clone.id = ref.id
     clone.path = ref.path
     return clone
@@ -40,10 +44,10 @@ export const addToFirestore = async function(ref, payload) {
 /** Returning the JS document as a Javascript Obj */
 /**************************************************/
 
-export const queryFirestore = async function(query) {
+export const queryFirestore = async function(query, asObject = false) {
   try {
     const snapshot = await query.get()
-    return unwrapFirestoreDoc(snapshot)
+    return unwrapFirestoreDoc(snapshot, asObject)
   } catch (e) {
     return Promise.reject(e)
   }
@@ -53,21 +57,31 @@ export const queryFirestore = async function(query) {
 /** Takes a Snapshot and returns the queried item */
 /** adding _id and _path to the queried document  */
 /**************************************************/
-export const unwrapFirestoreDoc = function(snapshot) {
+export const unwrapFirestoreDoc = function(snapshot, asObject = false) {
   //If it is a multi-document query
-  // returns am array of items
+
   if (snapshot.docs) {
-    let items = []
-    for (const doc of snapshot.docs) {
-      let item = doc.data()
-      item.id = doc.id
-      item.path = doc.ref.path
-      items.push(item)
+    if (asObject) {
+      // returns a Object with all items
+      let items = {}
+      for (const doc of snapshot.docs) {
+        let item = doc.data()
+        item.id = doc.id
+        item.path = doc.ref.path
+        items[item.id] = item
+      }
+      return items ? items : {}
+    } else {
+      // returns an array of items
+      let items = []
+      for (const doc of snapshot.docs) {
+        let item = doc.data()
+        item.id = doc.id
+        item.path = doc.ref.path
+        items.push(item)
+      }
+      return items ? items : []
     }
-    if (!items) {
-      return []
-    }
-    return items
   }
 
   //If it is a single-document query
