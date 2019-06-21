@@ -276,3 +276,8 @@ await changeDocId(ref, 'newId')
 ### Disclaimer
 
 These are just some quick functions I personally used in different Firebase projects to save some repeating lines of code. Since I used that in every project, I decided to build a node module out of it to easily manage it.
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/lupas/firewings/badge.svg?style=beer-square)](https://beerpay.io/lupas/firewings)  [![Beerpay](https://beerpay.io/lupas/firewings/make-wish.svg?style=flat-square)](https://beerpay.io/lupas/firewings?focus=wish)
