@@ -16,12 +16,12 @@
     "publishToNpm": "npm run compile && npm publish"
   },
   "peerDependencies": {
-    "firebase": "^5.7.2"
+    "firebase": "^6.3.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/polyfill": "^7.2.5"
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.4"
   }
 }
