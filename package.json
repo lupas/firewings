@@ -1,6 +1,6 @@
 {
   "name": "firewings",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "description": "Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.",
   "main": "lib/index.js",
