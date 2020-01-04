@@ -1,6 +1,6 @@
 {
   "name": "firewings",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "description": "Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.",
   "main": "lib/index.js",
@@ -16,12 +16,12 @@
     "publishToNpm": "npm run compile && npm publish"
   },
   "peerDependencies": {
-    "firebase": "^6.3.0"
+    "firebase": "^7.6.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.4",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.4"
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.7.7"
   }
 }
