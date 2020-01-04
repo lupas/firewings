@@ -161,7 +161,7 @@ function _deleteQueryBatch(fireStore, query, batchSize, resolve, reject) {
       // Recurse on the next process tick, to avoid
       // exploding the stack.
       process.nextTick(() => {
-        _deleteQueryBatch(db, query, batchSize, resolve, reject)
+        _deleteQueryBatch(fireStore, query, batchSize, resolve, reject)
       })
     })
     .catch(reject)
