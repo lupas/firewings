@@ -3,13 +3,17 @@
 /** Removes the properties id and path from the copy of a object  and set() it to firebase  */
 /********************************************************************************************/
 
-export const setToFirestore = async function(ref, payload, batch = null) {
+export const setToFirestore = async function(
+  ref: firebase.firestore.DocumentReference,
+  payload: any,
+  batch?: firebase.firestore.WriteBatch
+): Promise<any> {
   let clone = Object.assign({}, payload)
   if (clone.id) delete clone.id
   if (clone.path) delete clone.path
 
   try {
-    if (batch == null) {
+    if (batch == undefined) {
       await ref.set(clone)
     } else {
       batch.set(ref, payload)
@@ -27,7 +31,10 @@ export const setToFirestore = async function(ref, payload, batch = null) {
 /** Returns the payload with the properties id and path */
 /**************************************************/
 
-export const addToFirestore = async function(ref, payload) {
+export const addToFirestore = async function(
+  ref: firebase.firestore.CollectionReference,
+  payload: any
+) {
   let clone = Object.assign({}, payload)
   try {
     const docRef = await ref.add(clone)
@@ -44,7 +51,10 @@ export const addToFirestore = async function(ref, payload) {
 /** Returning the JS document as a Javascript Obj */
 /**************************************************/
 
-export const queryFirestore = async function(query, asObject = false) {
+export const queryFirestore = async function(
+  query: firebase.firestore.Query,
+  asObject = false
+): Promise<any> {
   try {
     const snapshot = await query.get()
     return unwrapFirestoreDoc(snapshot, asObject)
@@ -57,7 +67,12 @@ export const queryFirestore = async function(query, asObject = false) {
 /** Takes a Snapshot and returns the queried item */
 /** adding _id and _path to the queried document  */
 /**************************************************/
-export const unwrapFirestoreDoc = function(snapshot, asObject = false) {
+export const unwrapFirestoreDoc = function(
+  snapshot:
+    | firebase.firestore.DocumentSnapshot
+    | firebase.firestore.QuerySnapshot,
+  asObject = false
+): any {
   //If it is a multi-document query
 
   if (snapshot.docs) {
@@ -101,7 +116,10 @@ export const unwrapFirestoreDoc = function(snapshot, asObject = false) {
 /** WARNING: Do this at your own risk, only do this if you are sure what you are doing */
 /***************************************************************************************/
 
-export const changeDocId = async function(docRef, newKey) {
+export const changeDocId = async function(
+  docRef: firebase.firestore.DocumentReference,
+  newKey: string
+): Promise<any> {
   try {
     // First get the document
     const doc = await queryFirestore(docRef)
@@ -122,10 +140,10 @@ export const changeDocId = async function(docRef, newKey) {
 /***************************************************************************************/
 
 export const deleteEntireCollection = function(
-  fireStore,
-  collectionRef,
+  fireStore: firebase.firestore.Firestore,
+  collectionRef: firebase.firestore.CollectionReference,
   batchSize = 400
-) {
+): Promise<void> {
   let query = collectionRef.orderBy('__name__').limit(batchSize)
 
   return new Promise((resolve, reject) => {
@@ -133,7 +151,13 @@ export const deleteEntireCollection = function(
   })
 }
 
-function _deleteQueryBatch(fireStore, query, batchSize, resolve, reject) {
+function _deleteQueryBatch(
+  fireStore: firebase.firestore.Firestore,
+  query: firebase.firestore.Query,
+  batchSize: number,
+  resolve,
+  reject
+) {
   query
     .get()
     .then(snapshot => {
@@ -152,7 +176,7 @@ function _deleteQueryBatch(fireStore, query, batchSize, resolve, reject) {
         return snapshot.size
       })
     })
-    .then(numDeleted => {
+    .then((numDeleted: number) => {
       if (numDeleted === 0) {
         resolve()
         return

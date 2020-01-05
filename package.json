@@ -6,13 +6,14 @@
   "main": "lib/index.js",
   "author": "Pascal Luther",
   "repository": "https://github.com/lupas/firewings",
+  "types": "src/index.d.ts",
   "keywords": [
     "firebase",
     "firestore",
     "helper-functions"
   ],
   "scripts": {
-    "compile": "./node_modules/.bin/babel src --out-dir lib",
+    "compile": "tsc --declaration --noImplicitAny",
     "publishToNpm": "npm run compile && npm publish"
   },
   "peerDependencies": {
@@ -23,5 +24,9 @@
     "@babel/core": "^7.7.7",
     "@babel/polyfill": "^7.7.0",
     "@babel/preset-env": "^7.7.7"
+  },
+  "dependencies": {
+    "@types/node": "^13.1.4",
+    "firebase": "^7.6.1"
   }
 }
