@@ -1,12 +1,19 @@
+type DocumentReference = firebase.firestore.DocumentReference
+type CollectionReference = firebase.firestore.CollectionReference
+type DocumentSnapshot = firebase.firestore.DocumentSnapshot
+type QuerySnapshot = firebase.firestore.QuerySnapshot
+type WriteBatch = firebase.firestore.WriteBatch
+type Firestore = firebase.firestore.Firestore
+
 /********************************************************************************************/
 /** Takes a query and a payload *************************************************************/
 /** Removes the properties id and path from the copy of a object  and set() it to firebase  */
 /********************************************************************************************/
 
 export const setToFirestore = async function(
-  ref: firebase.firestore.DocumentReference,
+  ref: DocumentReference,
   payload: any,
-  batch?: firebase.firestore.WriteBatch
+  batch?: WriteBatch
 ): Promise<any> {
   let clone = Object.assign({}, payload)
   if (clone.id) delete clone.id
@@ -32,7 +39,7 @@ export const setToFirestore = async function(
 /**************************************************/
 
 export const addToFirestore = async function(
-  ref: firebase.firestore.CollectionReference,
+  ref: CollectionReference,
   payload: any
 ) {
   let clone = Object.assign({}, payload)
@@ -52,7 +59,7 @@ export const addToFirestore = async function(
 /**************************************************/
 
 export const queryFirestore = async function(
-  query: firebase.firestore.Query,
+  query: DocumentReference,
   asObject = false
 ): Promise<any> {
   try {
@@ -68,47 +75,51 @@ export const queryFirestore = async function(
 /** adding _id and _path to the queried document  */
 /**************************************************/
 export const unwrapFirestoreDoc = function(
-  snapshot:
-    | firebase.firestore.DocumentSnapshot
-    | firebase.firestore.QuerySnapshot,
+  snapshot: DocumentSnapshot | QuerySnapshot,
   asObject = false
 ): any {
   //If it is a multi-document query
-
-  if (snapshot.docs) {
-    if (asObject) {
-      // returns a Object with all items
-      let items = {}
-      for (const doc of snapshot.docs) {
-        let item = doc.data()
-        item.id = doc.id
-        item.path = doc.ref.path
-        items[item.id] = item
-      }
-      return items ? items : {}
-    } else {
-      // returns an array of items
-      let items = []
-      for (const doc of snapshot.docs) {
-        let item = doc.data()
-        item.id = doc.id
-        item.path = doc.ref.path
-        items.push(item)
-      }
-      return items ? items : []
-    }
+  if ((snapshot as QuerySnapshot).docs) {
+    return _unwrapQuerySnapshot(snapshot as QuerySnapshot, asObject)
   }
-
   //If it is a single-document query
   // returns a single item
-  if (!snapshot.docs) {
-    let item = snapshot.data()
-    if (item) {
-      item.id = snapshot.id
-      item.path = snapshot.ref.path
-    }
-    return item
+  else {
+    return _unwrapDocumentSnapshot(snapshot as DocumentSnapshot)
   }
+}
+
+function _unwrapQuerySnapshot(snapshot: QuerySnapshot, asObject: boolean) {
+  if (asObject) {
+    // returns a Object with all items
+    let items = {}
+    for (const doc of snapshot.docs) {
+      let item = doc.data()
+      item.id = doc.id
+      item.path = doc.ref.path
+      items[item.id] = item
+    }
+    return items ? items : {}
+  } else {
+    // returns an array of items
+    let items = []
+    for (const doc of snapshot.docs) {
+      let item = doc.data()
+      item.id = doc.id
+      item.path = doc.ref.path
+      items.push(item)
+    }
+    return items ? items : []
+  }
+}
+
+function _unwrapDocumentSnapshot(snapshot: DocumentSnapshot) {
+  let item = snapshot.data()
+  if (item) {
+    item.id = snapshot.id
+    item.path = snapshot.ref.path
+  }
+  return item
 }
 
 /***************************************************************************************/
@@ -117,7 +128,7 @@ export const unwrapFirestoreDoc = function(
 /***************************************************************************************/
 
 export const changeDocId = async function(
-  docRef: firebase.firestore.DocumentReference,
+  docRef: DocumentReference,
   newKey: string
 ): Promise<any> {
   try {
@@ -139,9 +150,9 @@ export const changeDocId = async function(
 /** WARNING: Do this at your own risk, only do this if you are sure what you are doing */
 /***************************************************************************************/
 
-export const deleteEntireCollection = function(
-  fireStore: firebase.firestore.Firestore,
-  collectionRef: firebase.firestore.CollectionReference,
+export const deleteEntireCollection = async function(
+  fireStore: Firestore,
+  collectionRef: CollectionReference,
   batchSize = 400
 ): Promise<void> {
   let query = collectionRef.orderBy('__name__').limit(batchSize)
@@ -152,11 +163,11 @@ export const deleteEntireCollection = function(
 }
 
 function _deleteQueryBatch(
-  fireStore: firebase.firestore.Firestore,
+  fireStore: Firestore,
   query: firebase.firestore.Query,
   batchSize: number,
-  resolve,
-  reject
+  resolve: any,
+  reject: any
 ) {
   query
     .get()
