@@ -273,6 +273,23 @@ await docRef.delete()
 await changeDocId(ref, 'newId')
 ```
 
+### Types
+
+Since Firewings can be used in the Client SDK aswell as Firebase-Admin SDK, typing is a bit tricky.
+
+We provide 2 type definitions, either for the Client SDK or the Admin SDK (both under constuction).
+Just add the relevant type definition file to your tsconfig.json:
+
+```jsonc
+"types": [
+      // For Client SDK
+      "firewings/types/client",
+      // For Admin SDK
+      "firewings/types/admin"
+    ]
+```
+
+
 ### Disclaimer
 
 These are just some quick functions I personally used in different Firebase projects to save some repeating lines of code. Since I used that in every project, I decided to build a node module out of it to easily manage it.
