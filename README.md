@@ -17,7 +17,7 @@ Make sure you have Firebase installed in your project and Firestore initiated.
 
 ```json
 "dependencies": {
-  "firebase": "^5.7.2"
+  "firebase": "latest"
 }
 ```
 
