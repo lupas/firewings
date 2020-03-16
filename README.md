@@ -40,7 +40,21 @@ import { unwrapFirestoreDoc } from 'firewings'
 
 # Included Functions
 
-See list of helper functions [here](https://firewings.netlify.com/functions/firestore/).
+See all details to our helper functions [here](https://firewings.netlify.com/functions/firestore/).
+
+## Firestore
+
+| Name        | Descripton           | Link  |
+| ------------- |:-------------:| -----:|
+| queryFirestore()      | ... |  [Click](https://firewings.netlify.com/functions/firestore) |
+| unwrapFirestoreDoc()      | ...      |  [Click](https://firewings.netlify.com/functions/firestore) |
+| addToFirestore() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
+| setToFirestore() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
+| changeDocId() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
+| deleteEntireCollection() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
+| copyCollection() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
+
+
 
 # Support on Beerpay
 Hey dude! Help me out for a couple of :beers:!
