@@ -1,4 +1,5 @@
 import queryFirestore from './queryFirestore'
+import deleteEntireCollection from './deleteEntireCollection'
 
 /***************************************************************************************/
 /** Copies a collection to a new path, leaves the old Collection as is. ****************/
@@ -9,7 +10,9 @@ import queryFirestore from './queryFirestore'
 export default async function(
   sourceCollectionRef,
   targetCollectionRef,
-  subCollections = []
+  subCollections = [],
+  fireStore = null,
+  deleteOld = false
 ) {
   try {
     // Copy Main Collection
@@ -20,8 +23,9 @@ export default async function(
     // If subcollections should be copied too, copy them.
     if (subCollections.length > 0) {
       const promises = []
-      for (const document of documents) {
-        for (const subCollection of subCollections) {
+      const deletePromises = []
+      for (const subCollection of subCollections) {
+        for (const document of documents) {
           const subCollectionSourceRef = sourceCollectionRef
             .doc(document.id)
             .collection(subCollection)
@@ -33,9 +37,23 @@ export default async function(
             subCollectionTargetRef
           )
           promises.push(promise)
+          if (deleteOld === true) {
+            const deletePromise = deleteEntireCollection(
+              fireStore,
+              subCollectionSourceRef
+            )
+            deletePromises.push(deletePromise)
+          }
         }
       }
+      // Copy all documents of this subselection
       await Promise.all([promises])
+      // Delete the old subselections
+      await Promise.all([deletePromises])
+    }
+    if (deleteOld === true) {
+      // Delete old main collection
+      await deleteEntireCollection(fireStore, sourceCollectionRef)
     }
   } catch (e) {
     return Promise.reject(e)
