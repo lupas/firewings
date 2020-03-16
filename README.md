@@ -48,6 +48,7 @@ import { changeDocId } from 'firewings'
 
 ## Firestore
 
+### queryFirestore()
 ```js
 queryFirestore()
 ```
@@ -58,6 +59,7 @@ In addition you get the documents `id` and `path` for every object, too.
 
 See the details [here](/functions/firestore/).
 
+### unwrapFirestoreDoc()
 ```js
 unwrapFirestoreDoc()
 ```
@@ -68,6 +70,7 @@ Additionally, it adds the documents `id` and `path` to every item.
 
 See the details [here](/functions/firestore/).
 
+### addToFirestore()
 ```js
 addToFirestore()
 ```
@@ -76,6 +79,7 @@ This function takes a reference and an object as payload and adds it to Firestor
 
 See the details [here](/functions/firestore/).
 
+### setToFirestore()
 ```js
 setToFirestore()
 ```
@@ -84,6 +88,7 @@ This function takes a query and an object as payload and sets (updates or create
 
 See the details [here](/functions/firestore/).
 
+### changeDocId()
 ```js
 changeDocId()
 ```
