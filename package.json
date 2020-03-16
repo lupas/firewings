@@ -1,6 +1,6 @@
 {
   "name": "firewings",
-  "version": "0.2.5",
+  "version": "0.3.0-beta1",
   "license": "MIT",
   "description": "Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.",
   "main": "lib/index.js",
@@ -12,16 +12,20 @@
     "helper-functions"
   ],
   "scripts": {
-    "compile": "./node_modules/.bin/babel src --out-dir lib",
-    "publishToNpm": "npm run compile && npm publish"
+    "build": "babel src -d build --out-dir lib",
+    "publishToNpm": "npm run build && npm publish",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "peerDependencies": {
     "firebase": "latest"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
-    "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.8.7"
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.1.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "1.19.1"
   }
 }
