@@ -19,6 +19,7 @@ export default async function(
     )
     // If subcollections should be copied too, copy them.
     if (subCollections.length > 0) {
+      const promises = []
       for (const document of documents) {
         for (const subCollection of subCollections) {
           const subCollectionSourceRef = sourceCollectionRef
@@ -27,12 +28,14 @@ export default async function(
           const subCollectionTargetRef = targetCollectionRef
             .doc(document.id)
             .collection(subCollection)
-          await _copySingleCollection(
+          const promise = _copySingleCollection(
             subCollectionSourceRef,
             subCollectionTargetRef
           )
+          promises.push(promise)
         }
       }
+      await Promise.all([promises])
     }
   } catch (e) {
     return Promise.reject(e)
@@ -45,10 +48,13 @@ const _copySingleCollection = async function(
 ) {
   try {
     const documents = await queryFirestore(sourceCollectionRef)
+    const promises = []
     for (const document of documents) {
       const targetRef = targetCollectionRef.doc(document.id)
-      await targetRef.set(document)
+      const promise = targetRef.set(document)
+      promises.push(promise)
     }
+    await Promise.all([promises])
     return documents
   } catch (e) {
     return Promise.reject(e)
