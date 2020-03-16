@@ -48,7 +48,7 @@ import { changeDocId } from 'firewings'
 
 ## Firestore
 
-### queryFirestore()
+### queryFirestore()
 ```js
 queryFirestore()
 ```
@@ -93,11 +93,7 @@ See the details [here](/functions/firestore/).
 changeDocId()
 ```
 
-This function changes the id of an existing document to a new id. It does this by creating a new document wwith the new key, and then deleting the old document.
-
-::: warning
-Only do this, if you are sure what you are doing. The old document will be deleted, so any references might be invalid. Also make sure you have no onDelete() actions that you don't want to get triggered.
-:::
+This function changes the id of an existing document to a new id. It does this by creating a new document with the new key, and then deleting the old document
 
 See the details [here](/functions/firestore/).
 
