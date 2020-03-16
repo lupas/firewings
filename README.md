@@ -42,7 +42,7 @@ import { unwrapFirestoreDoc } from 'firewings'
 
 See all details to our helper functions [here](https://firewings.netlify.com/functions/firestore/).
 
-## Firestore
+## Firestore
 
 | Name        | Descripton           |
 | ------------- |:-------------:|
