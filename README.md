@@ -44,15 +44,15 @@ See all details to our helper functions [here](https://firewings.netlify.com/fun
 
 ## Firestore
 
-| Name        | Descripton           | Link  |
-| ------------- |:-------------:| -----:|
-| queryFirestore()      | ... |  [Click](https://firewings.netlify.com/functions/firestore) |
-| unwrapFirestoreDoc()      | ...      |  [Click](https://firewings.netlify.com/functions/firestore) |
-| addToFirestore() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
-| setToFirestore() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
-| changeDocId() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
-| deleteEntireCollection() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
-| copyCollection() | ...     |  [Click](https://firewings.netlify.com/functions/firestore) |
+| Name        | Descripton           |
+| ------------- |:-------------:|
+| [queryFirestore()](https://firewings.netlify.com/functions/firestore#queryFirestore) | see docs |
+| [unwrapFirestoreDoc()](https://firewings.netlify.com/functions/firestore#unwrapFirestoreDoc) | see docs |
+| [addToFirestore()](https://firewings.netlify.com/functions/firestore#addToFirestore) | see docs |
+| [setToFirestore()](https://firewings.netlify.com/functions/firestore#setToFirestore)  | see docs |
+| [changeDocId()](https://firewings.netlify.com/functions/firestore#changeDocId) | see docs |
+| [deleteEntireCollection()](https://firewings.netlify.com/functions/firestore#deleteEntireCollection) | see docs |
+| [copyCollection()](https://firewings.netlify.com/functions/firestore#copyCollection) | see docs |
 
 
 
