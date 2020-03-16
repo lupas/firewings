@@ -230,9 +230,9 @@ await docRef.delete()
 await changeDocId(ref, 'newId')
 ```
 
-## copyCollection()
+## deleteEntireCollection()
 
-Copies an entire collection to another path. Optionally, also copy it's sub-collections (but only 1 level deep). Also optionally delete the old collection.
+Deletes all documents in a collection (not including sub collections).
 
 ::: warning
 Only do this, if you are sure what you are doing. Test it out first. This is messing with your Firestore Data, test it properly first.
@@ -241,17 +241,41 @@ Only do this, if you are sure what you are doing. Test it out first. This is mes
 **TRADITIONAL WAY**:
 
 ```js
-// First get the document
-const doc = await queryFirestore(docRef)
-// Then save it under the new id
-const newRef = docRef.parent.doc(newKey)
-const newDoc = await setToFirestore(newRef, doc)
-// Then delete the old document and return the new document
-await docRef.delete()
+// Too much code :P
 ```
 
 **WITH FIREWINGS**:
 
 ```js
-await changeDocId(ref, 'newId')
+await copyCollection(fireStore, collectionRef, batchSize = 400)
+
+// Firestore = Firestore instance, needed for creating batches
+```
+
+## copyCollection()
+
+Copies an entire collection to another path. Optionally, also copy it's sub-collections (but only 1 level deep). Also optionally deletes the old collection.
+
+::: warning
+Only do this, if you are sure what you are doing. Test it out first. This is messing with your Firestore Data, test it properly first.
+:::
+
+**TRADITIONAL WAY**:
+
+```js
+// Too much code :P
+```
+
+**WITH FIREWINGS**:
+
+```js
+await copyCollection(
+  sourceCollectionRef,
+  targetCollectionRef,
+  subCollections = [], // Optional
+  fireStore = null, // Optional, but a must if deleteOld = true
+  deleteOld = false // Optional
+  )
+
+// Firestore = Firestore instance, needed for creating batches
 ```
