@@ -7,7 +7,7 @@ import deleteEntireCollection from './deleteEntireCollection'
 /** WARNING: Do this at your own risk, only do this if you are sure what you are doing */
 /***************************************************************************************/
 
-export default async function(
+export default async function (
   sourceCollectionRef,
   targetCollectionRef,
   subCollections = [],
@@ -56,11 +56,11 @@ export default async function(
       await deleteEntireCollection(fireStore, sourceCollectionRef)
     }
   } catch (e) {
-    return Promise.reject(e)
+    Promise.reject(e)
   }
 }
 
-const _copySingleCollection = async function(
+const _copySingleCollection = async function (
   sourceCollectionRef,
   targetCollectionRef
 ) {

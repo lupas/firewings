@@ -5,7 +5,7 @@ import unwrapFirestoreDoc from './unwrapFirestoreDoc'
 /** Returning the JS document as a Javascript Obj */
 /**************************************************/
 
-export default async function(query, asObject = false) {
+export default async function (query, asObject = false) {
   try {
     const snapshot = await query.get()
     return unwrapFirestoreDoc(snapshot, asObject)

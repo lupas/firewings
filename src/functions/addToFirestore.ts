@@ -3,7 +3,7 @@
 /** Returns the payload with the properties id and path */
 /**************************************************/
 
-export default async function(ref, payload) {
+export default async function (ref, payload) {
   let clone = Object.assign({}, payload)
   try {
     const docRef = await ref.add(clone)
