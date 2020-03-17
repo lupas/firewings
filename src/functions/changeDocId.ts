@@ -6,7 +6,7 @@ import setToFirestore from './queryFirestore'
 /** WARNING: Do this at your own risk, only do this if you are sure what you are doing */
 /***************************************************************************************/
 
-export default async function(docRef, newKey) {
+export default async function (docRef, newKey) {
   try {
     // First get the document
     const doc = await queryFirestore(docRef)

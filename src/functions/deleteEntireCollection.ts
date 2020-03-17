@@ -3,7 +3,7 @@
 /** WARNING: Do this at your own risk, only do this if you are sure what you are doing */
 /***************************************************************************************/
 
-export default function(fireStore, collectionRef, batchSize = 400) {
+export default function (fireStore, collectionRef, batchSize = 400) {
   let query = collectionRef.orderBy('__name__').limit(batchSize)
 
   return new Promise((resolve, reject) => {

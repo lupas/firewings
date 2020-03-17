@@ -3,7 +3,7 @@
 /** adding _id and _path to the queried document  */
 /**************************************************/
 
-export default function(snapshot, asObject = false) {
+export default function (snapshot, asObject = false) {
   //If it is a multi-document query
 
   if (snapshot.docs) {
