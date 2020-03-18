@@ -11,6 +11,8 @@
 
 > Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.
 
+📖 [**Read Full Documentation**](https://firewings.netlify.com/)
+
 ## Requirements
 
 Make sure you have Firebase installed in your project and Firestore initiated.
