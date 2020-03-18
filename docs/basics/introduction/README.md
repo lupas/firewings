@@ -1,6 +1,6 @@
 # Introduction
 
-<p align="center"><img align="center" height="250px" src="https://github.com/lupas/firewings/blob/master/misc/logo/firewings_logo.png?raw=true"/></p>
+<p align="center"><img align="center" height="250px" src="https://firewings.netlify.com/firewings_logo.png"/></p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/firewings"><img src="https://badgen.net/npm/dm/firewings" alt="Downloads"></a>
