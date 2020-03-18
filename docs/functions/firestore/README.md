@@ -204,12 +204,14 @@ batch.commit().then(function() {
 })
 ```
 
-## changeDocId()
+## changeDocId() <Badge text="DANGEROUS" type="error"/>
 
 This function changes the id of an existing document to a new id. It does this by creating a new document wwith the new key, and then deleting the old document.
 
-::: warning
-Only do this, if you are sure what you are doing. The old document will be deleted, so any references might be invalid. Also make sure you have no onDelete() actions that you don't want to get triggered.
+::: danger
+This functions might result in **data loss** or **high Firebase bills**.  
+
+Only do this, if you are sure what you are doing and how many documents it will affect, taking into account EVERYTHING, e.g. possibly existing onDelete() Firebase Functions etc.
 :::
 
 **TRADITIONAL WAY**:
@@ -230,12 +232,14 @@ await docRef.delete()
 await changeDocId(ref, 'newId')
 ```
 
-## deleteEntireCollection()
+## deleteEntireCollection() <Badge text="DANGEROUS" type="error"/>
 
 Deletes all documents in a collection (not including sub collections).
 
-::: warning
-Only do this, if you are sure what you are doing. Test it out first. This is messing with your Firestore Data, test it properly first.
+::: danger
+This functions might result in **data loss** or **high Firebase bills**.  
+
+Only do this, if you are sure what you are doing and how many documents it will affect, taking into account EVERYTHING, e.g. possibly existing onDelete() Firebase Functions etc.
 :::
 
 **TRADITIONAL WAY**:
@@ -252,12 +256,14 @@ await copyCollection(fireStore, collectionRef, batchSize = 400)
 // Firestore = Firestore instance, needed for creating batches
 ```
 
-## copyCollection()
+## copyCollection() <Badge text="DANGEROUS" type="error"/>
 
 Copies an entire collection to another path. Optionally, also copy it's sub-collections (but only 1 level deep). Also optionally deletes the old collection.
 
-::: warning
-Only do this, if you are sure what you are doing. Test it out first. This is messing with your Firestore Data, test it properly first.
+::: danger
+This functions might result in **data loss** or **high Firebase bills**.  
+
+Only do this, if you are sure what you are doing and how many documents it will affect, taking into account EVERYTHING, e.g. possibly existing onDelete() Firebase Functions etc.
 :::
 
 **TRADITIONAL WAY**:
