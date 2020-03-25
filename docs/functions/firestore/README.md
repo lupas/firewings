@@ -9,19 +9,14 @@ In addition you get the documents `id` and `path` for every object, too.
 **TRADITIONAL WAY**:
 
 ```js
-/** 1.1 Define single-doc ref/query  */
-const query = db.collection('cities').doc('cityId')
-
-/** 1.2  Define multi-doc ref/query */
-const query = db.collection('cities')
-
-/** 2. Get Snapshot */
+/** For document query  */
+const ref = db.collection('cities').doc('cityId')
 const snapshot = await query.get()
-
-/** 3.1 Get data from Snapshot if single-doc query */
 const city = snapshot.data()
 
-/** 3.2 Get data from Snapshot if multiple-doc query */
+/** For collection query  */
+const ref = db.collection('cities')
+const snapshot = await query.get()
 let cities = []
 for (const doc of snapshot.docs) {
   let city = doc.data()
@@ -32,13 +27,13 @@ for (const doc of snapshot.docs) {
 **WITH FIREWINGS**:
 
 ```js
-// For single-doc queries:
+/**  For document query */
 const query = db.collection('cities').doc('cityId')
 const city = await queryFirestore(query)
 ```
 
 ```js
-// For multi-doc queries:
+/**  For collection query */
 const query = db.collection('cities')
 const cities = await queryFirestore(query)
 ```
