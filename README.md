@@ -11,7 +11,7 @@
 
 > Give Firebase wings! - Useful helper-functions for Firebase's JS SDK.
 
-📖 [**Read Full Documentation**](https://firewings.netlify.com/)
+📖 [**Read Full Documentation**](https://firewings.netlify.app/)
 
 ## Requirements
 
@@ -42,19 +42,19 @@ import { unwrapFirestoreDoc } from 'firewings'
 
 # Included Functions
 
-See all details to our helper functions [here](https://firewings.netlify.com/functions/firestore/).
+See all details to our helper functions [here](https://firewings.netlify.app/functions/firestore/).
 
 ## Firestore
 
 | Name        | Descripton           |
 | ------------- |:-------------:|
-| [queryFirestore()](https://firewings.netlify.com/functions/firestore/#queryfirestore) | see docs |
-| [unwrapFirestoreDoc()](https://firewings.netlify.com/functions/firestore/#unwrapfirestoredoc) | see docs |
-| [addToFirestore()](https://firewings.netlify.com/functions/firestore/#addtofirestore) | see docs |
-| [setToFirestore()](https://firewings.netlify.com/functions/firestore/#settofirestore)  | see docs |
-| [changeDocId()](https://firewings.netlify.com/functions/firestore/#changdocid) | see docs |
-| [deleteEntireCollection()](https://firewings.netlify.com/functions/firestore/#deleteentirecollection) | see docs |
-| [copyCollection()](https://firewings.netlify.com/functions/firestore/#copycollection) | see docs |
+| [queryFirestore()](https://firewings.netlify.app/functions/firestore/#queryfirestore) | see docs |
+| [unwrapFirestoreDoc()](https://firewings.netlify.app/functions/firestore/#unwrapfirestoredoc) | see docs |
+| [addToFirestore()](https://firewings.netlify.app/functions/firestore/#addtofirestore) | see docs |
+| [setToFirestore()](https://firewings.netlify.app/functions/firestore/#settofirestore)  | see docs |
+| [changeDocId()](https://firewings.netlify.app/functions/firestore/#changdocid) | see docs |
+| [deleteEntireCollection()](https://firewings.netlify.app/functions/firestore/#deleteentirecollection) | see docs |
+| [copyCollection()](https://firewings.netlify.app/functions/firestore/#copycollection) | see docs |
 
 
 
