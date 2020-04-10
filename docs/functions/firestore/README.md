@@ -2,9 +2,9 @@
 
 ## queryFirestore()
 
-This function gets you an item, an array of items or an object of items from a Firebase query without you having to care about loops or getting the data from the snapshot. You'll just get the objects right away.
+This function gets you an item or an array of items from a Firebase query without you having to care about loops or getting the data from the snapshot. You'll just get the objects right away.
 
-In addition you get the documents `id` and `path` for every object, too.
+In addition (if not deactivated) you get the documents `id` and `path` for every object, too.
 
 **TRADITIONAL WAY**:
 
@@ -38,67 +38,33 @@ const query = db.collection('cities')
 const cities = await queryFirestore(query)
 ```
 
-Furthermore you can use the second argument to return the data of a multi-doc querie as an `object` instad of an `array`.
+The function adds the documents `id` and `path` to every item. If you don't want that, set the second argument to `false`.
 
-This will retun a array:
+You can also pass a serialize function as the second argument to do your own object serialization, like convert timestamps to date objects.
 
-```js
-// For multi-doc queries which retuns an array:
-const query = db.collection('cities')
-const cities = await queryFirestore(query)
-// or
-const cities = await queryFirestore(query, false)
-```
+Example:
 
 ```js
-// const cities looks like
-;[
-  {
-    id: 'A',
-    path: 'cities/A'
-  },
-  {
-    id: 'B',
-    path: 'cities/B'
-  },
-  {
-    id: 'C',
-    path: 'cities/C'
+// Serialize Function
+export const serializeUser = (doc) => {
+  const user = doc.data()
+  user.uid = doc.id
+  if (user.createdAt) {
+    user.createdAt = user.createdAt.toDate()
   }
-]
-```
-
-This will return an object:
-
-```js
-// For multi-doc queries which return an object:
-const query = db.collection('cities')
-const cities = await queryFirestore(query, true)
-```
-
-```js
-// const cities looks like
-{
-  A: {
-    id: "A",
-    path: "cities/A"
-  },
-  B: {
-    id: "B",
-    path: "cities/B"
-  },
-  C: {
-    id: "C",
-    path: "cities/C"
-  },
+  return user
 }
+
+// Query
+const query = db.collection('users')
+const users = await queryFirestore(query, serializeUser)
 ```
 
 ## unwrapFirestoreDoc()
 
 This function unwraps a Firestore snapshot of a single- or multiple-document query and returns the item(s)' data as objects. Either as an array of objects, object of objects or as a single object.
 
-Additionally, it adds the documents `id` and `path` to every item.
+Additionally, per default it adds the documents `id` and `path` to every item. As with queryFirestore(), you can also pass `false` as the second arguent to disable serialization, or pass your own serialization function.
 
 **TRADITIONAL WAY**:
 
@@ -131,13 +97,6 @@ const city = unwrapFirestoreDoc(snapshot)
 /** For multi-doc queries returns an array of objects*/
 const cities = unwrapFirestoreDoc(snapshot)
 ```
-
-```js
-/** For multi-doc queries returns an object of objects*/
-const cities = unwrapFirestoreDoc(snapshot, true)
-```
-
-For more information about returning objects read the chaperter **queryFirestore**.
 
 ## addToFirestore()
 
