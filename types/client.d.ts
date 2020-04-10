@@ -5,6 +5,6 @@ declare module 'firewings' {
     type CollectionReference = firestore.CollectionReference
     type Query = firebase.firestore.Query<firebase.firestore.DocumentData>
 
-    export const queryFirestore: (query: DocumentReference | CollectionReference | Query, asObject?: boolean) => Promise<any>
+    export const queryFirestore: (query: DocumentReference | CollectionReference | Query, serialize?: boolean | Function) => Promise<any>
 
 }
