@@ -55,10 +55,3 @@ See all details to our helper functions [here](https://firewings.netlify.app/fun
 | [changeDocId()](https://firewings.netlify.app/functions/firestore/#changdocid) | see docs |
 | [deleteEntireCollection()](https://firewings.netlify.app/functions/firestore/#deleteentirecollection) | see docs |
 | [copyCollection()](https://firewings.netlify.app/functions/firestore/#copycollection) | see docs |
-
-
-
-# Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/lupas/firewings/badge.svg?style=beer-square)](https://beerpay.io/lupas/firewings)  [![Beerpay](https://beerpay.io/lupas/firewings/make-wish.svg?style=flat-square)](https://beerpay.io/lupas/firewings?focus=wish)
