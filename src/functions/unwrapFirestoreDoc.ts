@@ -22,11 +22,14 @@ export default function (snapshot, serialize = null) {
 }
 
 function _serializeItem(doc, serialize) {
+  if (!doc.exists) return null
+
   if (serialize) {
     return serialize(doc)
   }
 
   let item = doc.data()
+
   if (serialize === false) {
     // do nothing
   } else {
