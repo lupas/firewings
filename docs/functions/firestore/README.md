@@ -205,7 +205,7 @@ Only do this, if you are sure what you are doing and how many documents it will 
 **WITH FIREWINGS**:
 
 ```js
-await copyCollection(fireStore, collectionRef, batchSize = 400)
+await deleteEntireCollection(fireStore, collectionRef, batchSize = 400)
 
 // Firestore = Firestore instance, needed for creating batches
 ```
